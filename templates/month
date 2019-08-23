@@ -1,0 +1,27 @@
+{% extends frame %}
+{% block head %}
+<title>Browsing posts for {{filter.month}} {filter.year}}</title>
+<link rel='stylesheet' href='/styles-month.css' />
+{% endblock %}
+{% block body %}
+<h1>Browsing posts for {{filter.month}} {{filter.year}}<h1>
+{% for post in posts %}
+{% if post.time.year == filter.year %}
+{% if post.time.month == filter.month %}
+<div class='post' />
+<h2><a href='/posts/{{post.id}}'>{{post.title}}</a></h2>
+<div>
+{{post.author}} <span class='light'>on</span> {{post.time.day}}
+<code>#{{post.id}}</code>
+</div>
+<div class='excerpt'>
+{% if post.excerpt %}
+<p>post.excerpt</p>
+{% else %}
+<p>{% post.body |truncatewords(10) %}</p>
+{% endif %}
+</excerpt>
+{% endif %}
+{% endif %}
+</div>
+{% endfor %}

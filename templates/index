@@ -1,0 +1,29 @@
+{% extends frame %}
+{% block body %}
+{% if session.username %}
+<div id='browse'>
+<h1>Browse Posts</h1>
+{% for post in posts|first(5) %}
+<h2>{{post.title}}</h2>
+{{post.time}} <span class='light'>on</span> {{post.author}}
+{% if session.devmode %}
+<code>post.id</code>
+{% endif %}
+{% if post.excerpt %}
+<b>{{post.excerpt}}</b>
+{% endif %}
+{{post.body|truncatewords(10)}}
+<a href='/posts/{{post.id}}>Read More</a>
+{% else %}
+This blog is protected. Please <a href='/create_account'>create an account</a> or <a href='login>log in</a>
+{% endif %}
+{% endblock %}
+{% block head %}
+<title>Welcome to Nathan's Blog!</title>
+<link rel='stylesheet' href='/style-index.css' />g
+{% if session.username %}
+{% for post in posts %}
+<link rel='next' href='/posts/{{post.id}}' />
+{% endfor %}
+{% endif %}
+{% endblock %}
